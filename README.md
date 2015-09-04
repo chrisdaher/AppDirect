@@ -35,5 +35,6 @@ Building the application:
 	- run 'java -jar <jar_name>.jar
 
 Running the application:
+
 	- go to the root of the repository
 	- run 'gradle bootrun'
