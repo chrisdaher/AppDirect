@@ -26,3 +26,14 @@ Java:
 	- Press OK
 	- If you  don't have  JAVA_HOME in your Path,  click on Path ---> Edit  and  add  %JAVA_HOME%\jre\bin;  to the beginning of the existing path and press OK
 	- Open windows cmd.exe and type java -version  you should be able to see the java version 1.8
+
+Building the application:
+
+	- go to the root of the repository
+	- run 'gradle build'
+	- go to ./build/libs folder from the root folder of the repository
+	- run 'java -jar <jar_name>.jar
+
+Running the application:
+	- go to the root of the repository
+	- run 'gradle bootrun'
