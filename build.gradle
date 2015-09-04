@@ -1,0 +1,51 @@
+buildscript {
+    repositories {
+    	mavenLocal()
+        mavenCentral()
+        jcenter() 
+      	maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies{
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }   
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.5
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    compile("org.springframework:spring-core")
+    compile("org.springframework:spring-web")
+    compile("org.springframework:spring-webmvc")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
+    compile("org.springframework:spring-aspects")
+    compile("oauth.signpost:signpost-core:1.2.1.2")
+    compile("org.springframework:spring-tx")
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
