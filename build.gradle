@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies{
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+       classpath 'mysql:mysql-connector-java:5.1.16'
     }   
 }
 
@@ -36,6 +37,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("mysql:mysql-connector-java:5.1.6")
     compile("javax.ws.rs:javax.ws.rs-api:2.0.1")
     compile("org.springframework:spring-aspects")
     compile("oauth.signpost:signpost-core:1.2.1.2")
