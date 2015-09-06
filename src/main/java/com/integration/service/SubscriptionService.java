@@ -2,10 +2,12 @@ package com.integration.service;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.ws.http.HTTPException;
 
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
@@ -29,8 +31,22 @@ public class SubscriptionService {
   @Autowired
   private SubscriptionRepository subscriptionRepository;
   
+  public Subscription getSubscription(long id){
+	  return subscriptionRepository.findOne(id);
+  }
+  
+  public List<Subscription> getSubscriptions(){
+	  return subscriptionRepository.findAll();
+  }
+  
+  public Subscription updateSubscription(Subscription subscription){
+	  if(subscription.getId() == null || subscription.getId().longValue() <= 0)
+		  throw new HTTPException(404);
+	  return subscriptionRepository.save(subscription);
+  }
+  
   @Transactional
-  public String createSubscription(String eventUrl){
+  public Subscription createSubscription(String eventUrl){
     try {
       String response = client.authenticatedGetCall(eventUrl);
       JAXBContext context = JAXBContext.newInstance(EventDto.class);
@@ -40,8 +56,7 @@ public class SubscriptionService {
       System.out.println("worked");
       Subscription subscription = new Subscription();
       subscription.setType(event.getType());
-      Subscription saved = subscriptionRepository.save(subscription);
-      return saved.getId().toString();
+      return subscriptionRepository.save(subscription);
     } catch (OAuthMessageSignerException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -61,4 +76,6 @@ public class SubscriptionService {
 
     return null;
   }
+  
+  
 }
