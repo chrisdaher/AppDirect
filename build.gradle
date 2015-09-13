@@ -42,6 +42,7 @@ dependencies {
     compile("org.springframework:spring-aspects")
     compile("oauth.signpost:signpost-core:1.2.1.2")
     compile("org.springframework:spring-tx")
+    compile("commons-dbcp:commons-dbcp:1.4")
 }
 
 uploadArchives {

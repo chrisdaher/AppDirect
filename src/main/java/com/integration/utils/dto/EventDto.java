@@ -7,21 +7,30 @@ import com.integration.utils.enums.SubscriptionTypeEnum;
 
 @XmlRootElement(name="event")
 public class EventDto {
-  private SubscriptionTypeEnum type;
-  private PayloadDto payload;
-  public SubscriptionTypeEnum getType() {
-    return type;
-  }
-  @XmlElement
-  public void setType(SubscriptionTypeEnum type) {
-    this.type = type;
-  }
+	private SubscriptionTypeEnum type;
+	private CreatorDto creator;
+	private PayloadDto payload;
 
-  public PayloadDto getPayload() {
-    return payload;
-  }
-  @XmlElement
-  public void setPayload(PayloadDto payload) {
-    this.payload = payload;
-  }
+	public SubscriptionTypeEnum getType() {
+		return type;
+	}
+	@XmlElement
+	public void setType(SubscriptionTypeEnum type) {
+		this.type = type;
+	}
+
+	public PayloadDto getPayload() {
+		return payload;
+	}
+	@XmlElement
+	public void setPayload(PayloadDto payload) {
+		this.payload = payload;
+	}
+	public CreatorDto getCreator() {
+		return creator;
+	}
+	@XmlElement
+	public void setCreator(CreatorDto creator) {
+		this.creator = creator;
+	}
 }

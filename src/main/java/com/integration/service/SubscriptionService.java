@@ -20,7 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.integration.clients.ADAuthorizationClient;
 import com.integration.domain.entities.Subscription;
 import com.integration.domain.repositories.SubscriptionRepository;
+import com.integration.utils.dto.CreatorDto;
 import com.integration.utils.dto.EventDto;
+import com.integration.utils.dto.OrderDto;
+import com.integration.utils.dto.PayloadDto;
+import com.integration.utils.enums.EditionCodeEnum;
+import com.integration.utils.enums.PricingDurationEnum;
+import com.integration.utils.enums.SubscriptionTypeEnum;
 
 @Component
 @Transactional(readOnly = true)
@@ -45,6 +51,39 @@ public class SubscriptionService {
 	  return subscriptionRepository.save(subscription);
   }
   
+  private Subscription eventToSubscription(EventDto event){
+	  Subscription subscription = new Subscription();
+      subscription.setType(event.getType());
+      subscription.setEdition(event.getPayload().getOrder().getEditionCode());
+      subscription.setDuration(event.getPayload().getOrder().getPricingDuration());;
+      
+      PayloadDto payload = event.getPayload();
+      if(payload != null){
+    	  OrderDto order = payload.getOrder();
+    	  if(order != null){
+    		  EditionCodeEnum edition = order.getEditionCode();
+    		  PricingDurationEnum duration = order.getPricingDuration();
+    		  
+    		  subscription.setEdition(edition);
+    		  subscription.setDuration(duration);
+    	  }
+      }
+      
+      CreatorDto creator = event.getCreator();
+      if(creator != null){
+    	  String firstName = creator.getFirstName();
+    	  String lastName = creator.getLastName();
+    	  String email = creator.getEmail();
+    	  String uuid = creator.getUuid();
+    	  
+    	  subscription.setFirstName(firstName);
+    	  subscription.setLastName(lastName);
+    	  subscription.setEmail(email);
+    	  subscription.setUuid(uuid);
+      }
+      return subscription;
+  }
+  
   @Transactional
   public Subscription createSubscription(String eventUrl){
     try {
@@ -54,27 +93,22 @@ public class SubscriptionService {
       StringReader reader = new StringReader(response);
       EventDto event = (EventDto) marshal.unmarshal(reader);
       System.out.println("worked");
-      Subscription subscription = new Subscription();
-      subscription.setType(event.getType());
+     
+      Subscription subscription = eventToSubscription(event);
+      
       return subscriptionRepository.save(subscription);
     } catch (OAuthMessageSignerException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (OAuthExpectationFailedException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (OAuthCommunicationException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     } catch (JAXBException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
-    return null;
+    throw new HTTPException(500);
   }
   
   
