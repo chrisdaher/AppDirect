@@ -38,3 +38,14 @@ Running the application:
 
 	- go to the root of the repository
 	- run 'gradle bootrun'
+
+Running the frontend:
+	
+	- go to the root of the repository
+	- run 'npm install http-server -g'
+	- run 'http-server frontend'
+
+Pointing the frontend to local instance of backend:
+	
+	- edit ./frontend/app.js (relative to the root of the repository
+	- change the 'pathToApi' variable to point to the local instance of the backend
