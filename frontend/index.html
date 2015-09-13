@@ -1,0 +1,54 @@
+<!doctype html>
+<html ng-app="appDirect">
+	<head>
+		<script src="angular.min.js"></script>
+		<script src="app.js"></script>
+		<link href="bootstrap.min.css" rel="stylesheet">
+		<link href="subscription.css" rel="stylesheet">
+	</head>
+	<body>
+		<div ng-controller="subscription">
+			<div class="container-fluid" style="background-color:#e8e8e8">
+				<div class="container container-pad" id="subscription-listings">
+					<div class="row">
+					<div class="col-md-12">
+						<h1>Subscription List</h1>
+						<p>Sample Integration with AppDirect, The following displays the list of subscriptions to the Integration Challenge App</p>
+					</div>
+					</div>
+					
+					<div class="row">
+						<div> 
+							<div class="col-sm-5 brdr bgc-fff pad-10 box-shad btm-mrg-20 subscription-listing" ng-repeat="sub in subs" ng-class-even="'col-sm-offset-1'">
+								<div class="media">
+									<a class="pull-left" href="#" target="_parent">
+		
+									<div class="clearfix visible-sm"></div>
+		
+									<div class="media-body fnt-smaller">
+										<a href="#" target="_parent"></a>
+		
+										<h4 class="media-heading">
+										<a href="#" target="_parent">{{sub.email}}<small class="pull-right">{{sub.type}}</small></a></h4>
+		
+		
+										<ul class="list-inline mrg-0 btm-mrg-10 clr-535353">
+											<li>{{sub.edition}}</li>
+		
+											<li style="list-style: none">|</li>
+		
+											<li>{{sub.duration}}</li>
+										</ul>
+		
+										<p class="hidden-xs">{{sub.firstName}} {{sub.lastName}} subscribed to the Integration Challenge App with this email {{sub.email}}</p>
+										<span class="fnt-smaller fnt-lighter fnt-arial">AppDirect Reference: {{sub.uuid}}</span>
+									</div>
+								</div>
+							</div>
+						</div><!-- End Col -->
+					</div><!-- End row -->
+				</div><!-- End container -->
+			</div>
+		</div>
+	</body>
+</html>
